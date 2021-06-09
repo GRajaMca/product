@@ -7,7 +7,7 @@ on:
 
 env:
   DOCKER_IMAGE: grajamca/product
-  TAG: 1.0.0
+  TAG: 1.0.1
 
 jobs:
   setup-build-pipeline:
