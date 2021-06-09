@@ -7,7 +7,7 @@ on:
 
 env:
   IMAGE: grajamca/product
-  TAG: ${{ github.sha }}
+  TAG: 1.0.0
 
 jobs:
   setup-build-pipeline:
