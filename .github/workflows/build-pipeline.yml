@@ -1,0 +1,34 @@
+name: Build Pipeline with Github actions
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  IMAGE: grajamca/product
+  TAG: ${{ github.sha }}
+
+jobs:
+  setup-build-pipeline:
+    name: Setting up build pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v2
+
+      - name: Docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: Docker build
+        run: |
+          docker build -t $DOCKER_IMAGE:$TAG .
+
+      - name: Docker push
+        run: |
+          docker push $DOCKER_IMAGE:$TAG
